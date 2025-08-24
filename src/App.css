@@ -8,158 +8,254 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: #0f0f1f;
   color: #ffffff;
-  overflow-x: hidden;
+  overflow: hidden; /* Prevent scrollbars for immersive experience */
 }
 
 .App {
-  min-height: 100vh;
+  position: relative;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(135deg, #0f0f1f 0%, #1a1a2e 100%);
 }
 
+/* Immersive 3D Room Background */
+.room-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+/* Floating Header - Top Left */
 .app-header {
-  text-align: center;
-  padding: 20px;
-  background: rgba(26, 26, 46, 0.8);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid #333;
+  position: fixed;
+  top: 30px;
+  left: 30px;
+  text-align: left;
+  padding: 20px 30px;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(25px);
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 1000;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+  max-width: 420px;
 }
 
 .app-header h1 {
-  font-size: 2.5em;
+  font-size: 1.6em;
   color: #ffaa00;
-  margin-bottom: 10px;
-  text-shadow: 0 0 20px rgba(255, 170, 0, 0.3);
+  margin-bottom: 5px;
+  text-shadow: 0 0 10px rgba(255, 170, 0, 0.3);
 }
 
 .app-header p {
   color: #cccccc;
-  font-size: 1.1em;
-  opacity: 0.9;
+  font-size: 0.85em;
+  opacity: 0.8;
+  margin: 0;
 }
 
-.app-main {
-  flex: 1;
-  display: flex;
-  gap: 20px;
-  padding: 20px;
-  min-height: calc(100vh - 140px);
-  align-items: flex-start;
+/* Floating UI Overlays */
+.ui-overlay {
+  position: fixed;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(20px);
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+  transition: all 0.3s ease;
 }
 
-.left-panel {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  min-width: 300px;
+.ui-overlay:hover {
+  background: rgba(0, 0, 0, 0.9);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
 }
 
-.center-panel {
-  flex: 1;
+/* Main Menu Bar - Bottom Center */
+.main-menu-bar {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
+  gap: 18px;
+  z-index: 1001;
+}
+
+/* Menu Panel - Item Library (Left Side) */
+.left-panel-overlay {
+  top: 50%;
+  left: 30px;
+  transform: translateY(-50%);
+  width: 320px;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+/* Menu Panel - Control Panel (Right Side) */
+.right-panel-overlay {
+  top: 50%;
+  right: 30px;
+  transform: translateY(-50%);
+  width: 320px;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+/* Audio Player - Bottom Right */
+.bottom-panel-overlay {
+  bottom: 40px;
+  right: 30px;
+  width: 320px;
+}
+
+/* Modern Menu Buttons */
+.menu-button {
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 15px 20px;
+  color: white;
+  font-size: 0.9em;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  min-width: 120px;
   justify-content: center;
-  align-items: flex-start;
-  min-width: 800px;
 }
 
-.right-panel {
-  min-width: 300px;
+.menu-button:hover {
+  background: rgba(0, 0, 0, 0.9);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
 }
 
-/* Responsive Design */
-@media (max-width: 1400px) {
-  .app-main {
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .left-panel,
-  .right-panel {
-    min-width: auto;
-    width: 100%;
-    max-width: 800px;
-  }
-  
-  .center-panel {
-    min-width: auto;
-    width: 100%;
-  }
-  
-  .left-panel {
-    flex-direction: row;
-    gap: 20px;
-  }
-  
-  .left-panel > * {
-    flex: 1;
-  }
+.menu-button.active {
+  background: rgba(255, 170, 0, 0.9);
+  color: #1a1a2e;
+  border-color: rgba(255, 170, 0, 0.3);
 }
 
-@media (max-width: 900px) {
+.menu-button.active:hover {
+  background: rgba(255, 170, 0, 1);
+}
+
+.menu-button-icon {
+  font-size: 1.2em;
+}
+
+/* Hidden state for overlays */
+.ui-overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.left-panel-overlay.hidden {
+  transform: translateY(-50%) translateX(-100%);
+}
+
+.right-panel-overlay.hidden {
+  transform: translateY(-50%) translateX(100%);
+}
+
+.bottom-panel-overlay.hidden {
+  transform: translateY(100%);
+}
+
+/* Big Screen Optimizations (iPad Pro & Laptop+) */
+@media (min-width: 1024px) {
+  .left-panel-overlay,
+  .right-panel-overlay {
+    width: 380px;
+    max-height: 75vh;
+  }
+  
+  .bottom-panel-overlay {
+    width: 420px;
+  }
+  
+  .app-header {
+    padding: 20px 35px;
+    max-width: 450px;
+  }
+  
   .app-header h1 {
-    font-size: 2em;
+    font-size: 1.8em;
   }
   
-  .app-main {
-    padding: 10px;
-    gap: 15px;
+  .app-header p {
+    font-size: 0.95em;
   }
   
-  .left-panel {
-    flex-direction: column;
+  .menu-button {
+    padding: 18px 25px;
+    min-width: 140px;
+    font-size: 1em;
   }
   
-  .center-panel canvas {
-    max-width: 100%;
-    height: auto;
+  .main-menu-bar {
+    gap: 20px;
+    bottom: 40px;
   }
 }
 
-/* Scrollbar Styling */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #1a1a2e;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #444;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #666;
-}
-
-/* Loading and Animation Effects */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
+/* Standard Desktop/Laptop */
+@media (max-width: 1023px) {
+  .left-panel-overlay,
+  .right-panel-overlay {
+    width: 320px;
+    max-height: 70vh;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  
+  .bottom-panel-overlay {
+    width: 350px;
   }
 }
 
-.left-panel > *,
-.center-panel > *,
-.right-panel > * {
-  animation: fadeIn 0.6s ease-out;
+/* Custom Scrollbar for overlays */
+.ui-overlay::-webkit-scrollbar {
+  width: 6px;
 }
 
-.left-panel > *:nth-child(2) {
-  animation-delay: 0.2s;
+.ui-overlay::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
 }
 
-.center-panel > * {
-  animation-delay: 0.1s;
+.ui-overlay::-webkit-scrollbar-thumb {
+  background: rgba(255, 170, 0, 0.6);
+  border-radius: 3px;
 }
 
-.right-panel > * {
-  animation-delay: 0.3s;
+.ui-overlay::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 170, 0, 0.8);
+}
+
+/* Animation for floating elements */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.ui-overlay {
+  animation: float 6s ease-in-out infinite;
+}
+
+.ui-overlay:nth-child(2) {
+  animation-delay: -2s;
+}
+
+.ui-overlay:nth-child(3) {
+  animation-delay: -4s;
 }

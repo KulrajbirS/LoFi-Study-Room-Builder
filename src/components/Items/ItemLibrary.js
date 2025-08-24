@@ -14,16 +14,16 @@ const ItemLibrary = ({ onItemAdd }) => {
     { 
       id: 'chair', 
       name: 'Chair', 
-      width: 30, 
-      height: 30, 
+      width: 40, 
+      height: 50, 
       color: '#654321',
       category: 'furniture'
     },
     { 
       id: 'bookshelf', 
       name: 'Bookshelf', 
-      width: 60, 
-      height: 100, 
+      width: 50, 
+      height: 120, 
       color: '#A0522D',
       category: 'furniture'
     },

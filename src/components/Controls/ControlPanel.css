@@ -1,13 +1,13 @@
 .control-panel {
-  background: #1a1a2e;
-  border-radius: 10px;
+  background: transparent;
+  border-radius: 0;
   padding: 20px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-  width: 300px;
+  width: 100%;
   color: #ffffff;
   display: flex;
   flex-direction: column;
-  height: 600px;
+  height: auto;
+  max-height: 100%;
 }
 
 .panel-header h3 {

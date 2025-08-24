@@ -53,19 +53,6 @@ const ControlPanel = ({
       <div className="tab-content">
         {activeTab === 'room' && (
           <div className="room-controls">
-            <div className="control-group">
-              <label>Room Theme</label>
-              <select
-                value={roomSettings?.theme || 'dark'}
-                onChange={(e) => handleRoomSettingChange('theme', e.target.value)}
-                className="control-input"
-              >
-                <option value="dark">Dark Study</option>
-                <option value="warm">Warm Cozy</option>
-                <option value="minimal">Minimal</option>
-                <option value="nature">Nature View</option>
-              </select>
-            </div>
 
             <div className="control-group">
               <label>Lighting</label>

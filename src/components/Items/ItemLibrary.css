@@ -1,11 +1,10 @@
 .item-library {
-  background: #1a1a2e;
+  background: transparent;
   padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-  max-height: 600px;
+  border-radius: 0;
+  max-height: 100%;
   overflow-y: auto;
-  width: 300px;
+  width: 100%;
 }
 
 .item-library h3 {
